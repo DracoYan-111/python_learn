@@ -1,2 +1,7 @@
 This is my first lesson in learning Python
 1. Hello Python
+time=66
+if time > 99
+print('ok')
+else:
+print('no')
