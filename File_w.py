@@ -22,14 +22,14 @@
 # for row in ls
 # f.write（','.jion(row)+'\n'） 
 
-# Json格式
-# 写入————dump
-# import json
-# scores={'Petter':{'math':96,'physics':98},'Pull':{'math':92,'physics':99},'Mary':{'math':98,'physics':97}}
-# with open ('score.json','w',encoding='utf-8') as f:
-# json.dump(scores,f,indent=4,ensure_ascii=False)
-# 读取————load
-# with open ('score.json','r',encoding='utf-8') as f:
-# scores=json.load(f)
-# for k,v in scores.items():
-# print(k,v)
+#Json格式
+#写入————dump
+import json
+scores={'Petter':{'math':96,'physics':98},'Pull':{'math':92,'physics':99},'Mary':{'math':98,'physics':97}}
+with open ('score.json','w',encoding='utf-8') as f:
+ json.dump(scores,f,indent=4,ensure_ascii=False)
+#读取————load
+with open ('score.json','r',encoding='utf-8') as f:
+ scores=json.load(f)
+for k,v in scores.items():
+ print(k,v)
