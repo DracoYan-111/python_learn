@@ -28,4 +28,10 @@ for i in range(1, 21):
 #等价于
       n=-10
       x=n if n>=0 else -n
+#时间库
+      t_local=time.localtime()      #本地时间
+      t_utc=time.gmtime()           #UTC世界统一时间
+    print('t_local',t_local)
+    print('t_utc',t_utc)
+      
 
