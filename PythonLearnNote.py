@@ -1,5 +1,5 @@
-time=66
-if time > 99:
+time1=66
+if time1 > 99:
   print('ok')
 else:
   print('no')
@@ -29,6 +29,7 @@ for i in range(1, 21):
       n=-10
       x=n if n>=0 else -n
 #时间库
+      import time
       t_local=time.localtime()      #本地时间
       t_utc=time.gmtime()           #UTC世界统一时间
     print('t_local',t_local)
@@ -59,5 +60,26 @@ for i in range(1, 21):
     x.mean()         #均值
     x.var()          #方差
     x.std()          #标准差
-
-
+  #Pandas库
+    import pandas as pd
+    data1=pd.Series([1.5, 3, 4.5, 6])
+    data2=pd.Series([1.5, 3, 4.5, 6],index=['a','b','c','d'])
+    data3=pd.Series([1.5, 3, 4.5, 6],index=['a','b','c','d'],dtype=float)
+  #通过字典列表对象创建
+    data4=[{'a':i, 'b':2*i} for i in range(3)]
+    pd.DataFrame(data4)
+#合并数据
+    def make_df(cols,ind):
+      data5={c:[str(c)+str(i) for i in ind] for c in cols}
+      return pd.DataFrame(data5, ind)
+    make_df('ABC',range(3))
+    df_1=make_df('AB',[1, 2])
+    df_2=make_df('AB',[3, 4])
+    print(df_1)
+    print(df_2)
+    pd.concat([df_1,df_2])    #垂直合并
+    df_3=make_df('AB',[1, 2])
+    df_4=make_df('AB',[3, 4])
+    print(df_3)
+    print(df_4)
+    pd.concat([df_3,df_4], axis=1)   #水平合并
