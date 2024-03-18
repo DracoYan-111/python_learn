@@ -83,3 +83,13 @@ for i in range(1, 21):
     print(df_3)
     print(df_4)
     pd.concat([df_3,df_4], axis=1)   #水平合并
+  #Matplotlib库
+    import matplotlib.pyplot as plt      #导入matplotlib库
+    import numpy as np                   #数据处理
+    plt.style.use('seaborn-v0_8-whitegrid')    #设置风格
+    x=[1, 2, 3, 4]                        #创建数据
+    y=[1, 4, 9, 16]        
+    plt.plot(x, y)                        #绘制折线图
+    plt.ylabel('Squares')              #定义y轴
+    plt.show
+    
