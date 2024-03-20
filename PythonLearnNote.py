@@ -92,4 +92,83 @@ for i in range(1, 21):
     plt.plot(x, y)                        #绘制折线图
     plt.ylabel('Squares')              #定义y轴
     plt.show
-    
+  #三集不相交
+    import random
+    def creat_sequence(n):
+      A=random.sample(range(1, 1000),k=n)
+      B=random.sample(range(1000,2000),k=n)
+      C=random.sample(range(2000,3000),k=n)
+      return A,B,C
+      A,B,C=creat_sequence(100)
+      def no_intersection_1(A,B,C):
+        for a in A:
+          for b in B:
+            for c in C :
+              if a==b==c:
+                return False
+        return True
+      #或者
+      def no_intersection_2(A,B,C):
+        for a in A:
+          for b in B:
+            if a==b:
+             for c in C :
+              if a==c:
+                return False
+        return True
+      
+#元素唯一性问题
+      def unique_1(A):
+        for i in range(len(A)):
+          for j in range(i+1,len(A)):
+            if A[i]==A[j]:
+              return False
+            return True
+      def unique_2(A):
+        A_sort=sorted(A)
+        for i in range(len(A_sotr)-1):
+            if A[i]==A[i+1]:
+              return False
+            return True    
+#第n个斐波那契数列
+        def bad_fibonacci(n):      #递归
+          if n <=1:
+            return n 
+          else:
+            return bad_fibonacci(n-2)+bad_fibonacci(n-1)
+        #O（2^n）
+        def good_fibonacci(n):
+          i,a,b=0,0,1
+          while i<n:
+            a,b=b,a+b
+            i+=1
+            return a 
+#最大盛水容器
+          #双循环
+          def max_area_double_cycle(height):
+            i_left,i_right,max_area=0,0,0
+            for i in range(len(height)-1):
+              for j in range(i+1,len(height)):
+                area=(j-i)*min(height[j],height[i])
+                if area>max_area:
+                   i_left,i_right,max_area=i,j,area
+                   return  i_left,i_right,max_area
+                height=np.random.randint(1,50,size=10)
+                print(height)
+                max_area_double_cycle(height)
+          #双向指针
+          def max_area_bothway_points(height):     
+             i=0
+             j=len(height)-1
+             i_left,i_right,max_area=0,0,0
+             while i<j:
+               area=(j-i)*min(height[i],height[j])
+               if area >max_area:
+                 i_left,i_right,max_area=i,j,area
+               if height(i)>min(height[i],height[j]):
+                 i+=1
+               else:
+                 j-=1
+                 return  i_left,i_right,max_area
+               max_area_bothway_points(height)
+               
