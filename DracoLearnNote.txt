@@ -1,2 +1,0 @@
-This is my first lesson in learning Python
-1. Hello Python
