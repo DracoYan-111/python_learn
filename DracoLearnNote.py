@@ -144,3 +144,40 @@ result2 = even_odd(4)
 
 # prints even 
 print(result2) 
+#处理异常
+try :
+   numerator = 10
+   denominator = 0
+   result=numerator/denominator
+   print(result)
+except:
+   print('Error:denominator cannot be 0.')
+   
+try:
+   even_numbers=[2,4,6,8]
+   print(even_numbers[5])
+except ZeroDivisionError:         #跳过异常           
+   print('Denominator cannot be 0.')
+except IndexError:    #执行异常中的代码集
+   print('Index Out of Bound')
+
+
+try:
+   num=int(input('Enter a number: '))
+   assert num % 2 == 0
+
+except:
+   print('Not an even number!')    #不是一个偶数
+else:
+   reciprocal = 1/num             #偶数显示其倒数
+   print(reciprocal)
+
+try:
+   numerator=10            #分子
+   denominator=0           #分母
+   result=numerator/denominator
+   print(result)
+except:
+   print('Error:denominator cannot be 0.')
+finally:
+   print('This is a finally block.')
