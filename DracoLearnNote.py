@@ -181,3 +181,6 @@ except:
    print('Error:denominator cannot be 0.')
 finally:
    print('This is a finally block.')
+#函数调用
+def myfunction():
+   print('Hello world!')
