@@ -127,6 +127,123 @@ if match:
 match = re.search(r'[\w.-]+@[\w.-]+', str)
 if match:
     print(match.group())  ## 'alice-b@google.com'
+#装饰器
+def plus_one(number):
+  def add_one(number):
+   return number+1
+# add_one=plus_one
+# add_one(5)
+  result=add_one(number)
+  return result
+plus_one(4)
+#函数也可以作为参数传递给其他函数
+def plus_one(number):
+   return number+1
+def function_call(function):
+   number_to_add=5
+   return function(number_to_add)
+function_call(plus_one)
+#一个函数也可以生成另一个函数
+def hello_function():
+   def say_hi():
+      return 'hi'
+   return say_hi
+hello=hello_function   
+hello()
+#嵌套函数访问封闭函数的外部作用域
+def print_message(message):
+   'Enclosong Function'
+def message_sender():
+   'Nested Function'
+   print(message)
+message_sender()
+print_message('Some random message')
+#创建一个简单的装饰器，将句子转换为大写
+def uppercase_decorator(function):  #大写
+   def wrapper():
+      func=function()
+      make_uppercase=func.upper()
+      return make_uppercase
+   return wrapper
+def say_hi():
+   return 'hello there'
+decorate=uppercase_decorator(say_hi)
+decorate
+#一种更简单的方法来应用装饰器。我们只需在要装饰的函数之前使用 @ 符号
+@uppercase_decorator
+def say_hi():
+   return 'hello there'
+say_hi()
+#将多个装饰器用于单个函数
+import functools
+def splitted_string(function):
+   @functools.wraps(function)
+   def wrapper():
+    func=function()
+    splitted_string=func.split()
+    return splitted_string
+   return wrapper
+@splitted_string
+@uppercase_decorator
+def say_hi():
+   return 'hello there'
+say_hi()
+#接受参数的装饰器
+def decorator_with_arguments(function):
+   def wapper_accepting_arguments(arg1,arg2):
+      print('My argumens are:{0},{1}'.format(arg1,arg2))
+      function(arg1,arg2)
+   return wapper_accepting_arguments   #包装器接收参数
+@decorator_with_arguments
+def cities(city_one,city_two):
+   print('Cities I Love {0} and {1}'.format(city_one,city_two))
+   cities('Nairobi','Accra')
+#通用的装饰器
+   def a_decorator_passing_arbitrary_arguments(function_to_decorate):
+    def a_wrapper_accepting_arbitrary_arguments(*args,**kwargs):
+        print('The positional arguments are', args)
+        print('The keyword arguments are', kwargs)
+        function_to_decorate(*args)
+    return a_wrapper_accepting_arbitrary_arguments
+
+   @a_decorator_passing_arbitrary_arguments
+   def function_with_no_argument():
+    print("No arguments here.")
+
+   function_with_no_argument()
+#使用位置参数来使用装饰器
+   @a_decorator_passing_arbitrary_arguments
+   def function_with_arguments(a, b, c):
+    print(a, b, c)
+   function_with_arguments(1,2,3)
+#使用关键字参数
+@a_decorator_passing_arbitrary_arguments
+def function_with_keyword_arguments():
+    print("This has shown keyword arguments")
+function_with_keyword_arguments(first_name="Derrick", last_name="Mwiti")
+# Python program to illustrate functions 
+# can be treated as objects 
+def shout(text): 
+	return text.upper() 
+
+print(shout('Hello')) 
+
+yell = shout 
+
+print(yell('Hello')) 
+
+# Python program to illustrate functions 
+# Functions can return another function 
+
+def create_adder(x): 
+	def adder(y): 
+		return x+y 
+
+	return adder 
+
+add_15 = create_adder(15) 
+
+print(add_15(10)) 
 
 
 
