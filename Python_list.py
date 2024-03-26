@@ -246,6 +246,109 @@ add_15 = create_adder(15)
 print(add_15(10)) 
 
 
+# def functionNum(arg1,arg2):
+#     functionNum(valueForArg1, valueForArg2)
+
+#从元组返回一个迭代器，并打印每个值
+mytuple=('apple','banana','cherry')
+myit=iter(mytuple)
+print(next(myit))
+print(next(myit))
+print(next(myit))
+#字符串也可是迭代器
+mystr = "banana"
+myit=iter(myit)
+print(next(myit))
+print(next(myit))
+print(next(myit))
+print(next(myit))
+print(next(myit))
+print(next(myit))
+#利用循环来迭代一个可迭代对象
+mytuple=('apple','banana','cherry')
+for x in mytuple:
+   print(x)
+
+mystr='banana'
+for x in mystr:
+   print(x)
+
+#创建迭代器
+   #返回从 1 开始的数字和每个序列 将增加 1（返回 1、2、3、4、5 等
+class MyNumbers:
+   def __iter__(self):
+      self.a = 1
+      return self
+   def __next__(self):
+      x=self.a
+      self.a += 1
+      return x
+myclass = MyNumbers()
+myiter = iter(myclass)
+print(next(myiter))
+print(next(myiter))
+print(next(myiter))
+print(next(myiter))
+print(next(myiter))
+#无限迭代器
+from itertools import count
+
+# create an infinite iterator that starts at 1 and increments by 1 each time
+infinite_iterator = count(1)
+
+# print the first 5 elements of the infinite iterator
+for i in range(5):
+    print(next(infinite_iterator))
+    
+#20次迭代后停止
+class MyNumbers:
+  def __iter__(self):
+    self.a = 1
+    return self
+
+  def __next__(self):
+    if self.a < 20:
+     x = self.a
+     self.a += 1
+     return x
+    else:
+       raise StopAsyncIteration
+
+myclass = MyNumbers()
+myiter = iter(myclass)
+
+for x in myiter:
+ print(x)
+
+print('\nDictionary Iternation')
+d = dict()
+d['xyz'] = 123
+d['abc'] = 456
+for i in d:
+   print('%s %d' %(i, d[i]))
+#在迭代器上迭代
+tup = ('a','b','c','d','e')
+tup_iter=iter(tup)
+print('Inside loop:')
+for index, item in enumerate(tup_iter):
+   print(item)
+   if index == 2:
+      break
+   print('Outside loop:')
+   print(next(tup_iter))
+   print(next(tup_iter))
+#匿名函数
+def myfunc(n):
+  return lambda a: a * n
+mydoubler = myfunc(2)
+print(mydoubler(11))
+
+mytripler = myfunc(3)
+print(mytripler(11))
+
+
+
+
 
 
 
