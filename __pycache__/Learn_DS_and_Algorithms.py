@@ -232,7 +232,227 @@ circular_llist.print_list()
 circular_llist.print_list(b)
 circular_llist.print_list(d)
 
+#创建堆栈
+class Stack:
+ def __init__(self):
+    self.items = []
+
+ def isEmpty(self):
+    return self.items == []
+
+ def push(self, item):
+    self.items.append(item)
+
+ def pop(self):
+    return self.items.pop()
+
+ def peek(self):
+    return self.items[-1]
+
+ def size(self):
+     return len(self.items)
+
+# Create a stack instance
+mystack = Stack()
+
+# Check if the stack is empty
+print(mystack.isEmpty())  # Output: True
+
+# Push items onto the stack
+mystack.push(5)
+mystack.push(12)
+mystack.push(30)
+
+# Check if the stack is empty after pushing items
+print(mystack.isEmpty())  # Output: False
+
+# Pop items from the stack
+print(mystack.pop())  # Output: 30
+print(mystack.pop())  # Output: 12
+print(mystack.pop())  # Output: 5
+
+# Check if the stack is empty after popping items
+print(mystack.isEmpty())  # Output: True
+
+from collections import deque    #方法一：使用 collections.deque 实现
+stack = deque()
+
+# stack = []             #方法二
+
+stack.append('a')
+stack.append('b')
+stack.append('c')
+print('Initial stack')     #初始堆栈
+print(stack)
+
+print('\nElements popped from stack:')   #元素从堆栈中删除
+print(stack.pop())
+print(stack.pop())
+print(stack.pop())
+
+print('\nStack after elements are popped :')#元素弹出后入栈
+print(stack)
+
+# 使用队列模块实现
+from queue import LifoQueue
+stack = LifoQueue(maxsize = 3)
+print(stack.qsize())
+stack.put('a')
+stack.put('b')
+stack.put('c')
+
+print('Full: ', stack.full())
+print('Size: ', stack.qsize())
+
+print('\nElements popped from stack:')   #元素从堆栈中删除
+print(stack.get())
+print(stack.get())
+print(stack.get())
+print("\nEmpty: ", stack.empty())
 
 
+#使用单向链表实现
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+        
+    
+    # 初始化堆栈。
+     # 使用虚拟节点，即
+     # 更容易处理边缘情况。
+class Stack:
+    def __init__(self):
+        self.head = Node("head")
+        self.size = 0
+        
+    # 堆栈的字符串表示
+    def __str__(self):
+        cur = self.head.next
+        out = ''
+        while cur :
+            out += str(cur.value) + "->"
+            cur = cur.next
+        return out[:2]
+        # 获取当前栈的大小
+    def getSize(self):
+        return self.size
+    def isEmpty(self):
+        return self.size == 0
+    def peek(self):          #获取栈顶元素
+        # 看看我们是否#正在查看一个空堆栈。
+        if self.isEmpty():
+            raise Exception("Peeking from an empty stack")
+        return self.head.next.value
+    def push(self, value):
+        node = Node(value)
+        node.next = self.head        # 让新节点指向当前头
+        self.head = node            # 将头更新为新节点
+        self.size += 1
+    def pop(self):    # 从栈中取出一个值并返回
+        if self.isEmpty():
+            raise Exception("Popping from an empty stack")
+        remove = self.head.next
+        self.head.next = self.head.next.next
+        self.size -= 1
+        return remove.value 
+# 驱动程序代码
+if __name__ == "__main__":
+    stack = Stack()
+    for i in range(1, 11):
+        stack.push(i)
+    print(f"Stack: {stack}")
 
+    for _ in range(1, 6):
+        remove = stack.pop()
+        print(f"Pop: {remove}")
+    print(f"Stack: {stack}")
 
+# Python 中的堆实现
+
+class MinHeap:
+    def __init__(self):
+        # 在此实现中，堆列表是用一个值初始化的
+        self.heap_list = [0]
+        self.current_size = 0
+ 
+    def sift_up(self, i):
+        #  将值在树中向上移动以维护堆属性。
+        # 当该元素不是根元素或左元素时
+        Stop = False
+        while (i // 2 > 0) and Stop == False:
+            # 如果元素小于其父元素则交换元素
+            if self.heap_list[i] < self.heap_list[i // 2]:
+                self.heap_list[i], self.heap_list[i // 2] = self.heap_list[i // 2], self.heap_list[i]
+            else:
+                Stop = True
+            # 将索引移动到父级以保留属性
+            i = i // 2
+ 
+    def insert(self, k):
+        # 向堆中插入一个值
+        # 将元素追加到堆中
+        self.heap_list.append(k)
+        # 增加堆的大小。
+        self.current_size += 1
+        # 将元素从下往上移动到指定位置
+        self.sift_up(self.current_size)
+ 
+    def sift_down(self, i):
+        # 如果当前节点至少有一个子节点
+        while (i * 2) <= self.current_size:
+            # 获取当前节点的最小子节点的索引
+            mc = self.min_child(i)
+            # 交换当前元素的值大于其最小子元素的值
+            if self.heap_list[i] > self.heap_list[mc]:
+                self.heap_list[i], self.heap_list[mc] = self.heap_list[mc], self.heap_list[i]
+            i = mc
+ 
+    def min_child(self, i):
+        # 如果当前节点只有一个子节点，则返回唯一子节点的索引
+        if (i * 2)+1 > self.current_size:
+            return i * 2
+        else:
+           # 这里当前节点有两个子节点
+             # 根据值返回最小子节点的索引
+            if self.heap_list[i*2] < self.heap_list[(i*2)+1]:
+                return i * 2
+            else:
+                return (i * 2) + 1
+ 
+    def delete_min(self):
+        # 等于 1，因为堆列表是用一个值初始化的
+        if len(self.heap_list) == 1:
+            return 'Empty heap'
+ 
+       # 获取堆的根（堆的最小值）
+        root = self.heap_list[1]
+ 
+        # 将堆的最后一个值移动到根
+        self.heap_list[1] = self.heap_list[self.current_size]
+ 
+        # 弹出自在根上设置副本以来的最后一个值
+        *self.heap_list, _ = self.heap_list
+ 
+       # 减小堆的大小 
+        self.current_size -= 1
+ 
+        # 向下移动根（索引 1 处的值）以保留堆属性
+        self.sift_down(1)
+ 
+        # 返回堆的最小值
+        return root
+
+#运行程序
+my_heap = MinHeap()
+my_heap.insert(5)
+my_heap.insert(6)
+my_heap.insert(7)
+my_heap.insert(9)
+my_heap.insert(13)
+my_heap.insert(11)
+my_heap.insert(10)
+
+print(my_heap.delete_min()) # 删除最小节点，即 5
+
+ 
