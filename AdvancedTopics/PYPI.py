@@ -196,4 +196,181 @@ for value in raw_data:
 
 filtered_data
 
+#生成器表达式
+def squares(length):
+   for n in range(length):
+      yield n ** 2
+for square in squares(5):
+      print(square)
+#    该表达式返回从 0 到 4 的整数的平方数：
+squares = (n ** 2 for n in range(5))
+for square in squares:
+      print(square)
+# 使用列表推导式
+square_list = [n** 2 for n in range(5)]     #列表方括号
+square_generator = (n** 2 for n in range(5))
 
+a = 12
+b = "this is text"
+my_list = [0, b, ['element', 'another element'], (1, 2, 3), a]
+print(my_list)
+
+a = ['red', 'green', 'blue']
+print(a[0])
+
+#创建列表
+my_list = [0, 1, 2, 3, 4, 5]
+my_list = list()
+# 将字符串拆分为单独的符号：
+string = 'string'
+list(string)
+
+#列表推导
+my_list = []
+for x in range(10):
+  my_list.append(x * 2)
+print(my_list)
+
+comp_list = [x ** 2 for x in range(7) if x % 2 == 0]
+print(comp_list)
+
+nums = [1, 2, 3, 4, 5]
+letters = ['A', 'B', 'C', 'D', 'E']
+nums_letters = [[n, l] for n in nums for l in letters]
+#推导式列表将两个简单列表组合成一个复杂的列表列表。
+print(nums_letters)
+
+iter_string = "some text"
+comp_list = [x for x in iter_string if x !=" "]
+print(comp_list)
+
+# 使用 Python 集生成器创建字典和集推导式
+dict_comp = {x:chr(65+x) for x in range(1, 11)}
+type(dict_comp)
+print(dict_comp)
+set_comp = {x ** 3 for x in range(10) if x % 2 == 0}
+type(set_comp)
+print(set_comp)
+
+customers = [{"is_kyc_passed": False}, {"is_kyc_passed": True}]
+kyc_results = []
+for customer in customers:
+   kyc_results.append(customer["is_kyc_passed"])
+all(kyc_results)
+customers = [{"is_kyc_passed": False}, {"is_kyc_passed": True}]
+all(customer["is_kyc_passed"] for customer in customers)
+
+
+simple_list = [1, 2, 3]
+my_iterator = iter(simple_list) #首先对对象调用 iter（） 方法，将其转换为迭代器对象。
+print(my_iterator)
+next(my_iterator)  #在迭代器对象上调用 next（） 方法以获取序列的下一个元素。
+next(my_iterator)
+next(my_iterator)
+next(my_iterator)   #当没有剩余的元素可以调用时，将引发 StopIteration 异常。
+
+#生成器表达式
+def my_gen():
+   for x in range(5):
+    yield x
+gen_exp = (x ** 2 for x in range(10) if x % 2 == 0)
+for x in gen_exp:
+ print(x)
+
+#  Python 生成器表达式和列表推导式返回的数据类型不同
+list_comp = [x ** 2 for x in range(10) if x % 2 == 0]
+gen_exp = (x ** 2 for x in range(10) if x % 2 == 0)
+print(list_comp)
+
+print(gen_exp)
+
+# 使用 sys.getsizeof（） 方法检查这两种类型占用了多少内存。
+from sys import getsizeof
+my_comp = [x * 5 for x in range(1000)]
+my_gen = (x * 5 for x in range(1000))
+getsizeof(my_comp)
+
+getsizeof(my_gen)
+
+#生成器表达式
+# Python code to illustrate generator, yield() and next(). 使生成器函数更加紧凑可靠
+def generator(): 
+	t = 1
+	print ('First result is ',t) 
+	yield t 
+
+	t += 1
+	print ('Second result is ',t) 
+	yield t 
+
+	t += 1
+	print('Third result is ',t) 
+	yield t 
+
+call = generator() 
+next(call) 
+next(call) 
+next(call) 
+# 用于说明生成器表达式的 Python 代码
+# Python code to illustrate generator expression 
+generator = (num ** 2 for num in range(10)) 
+for num in generator:
+	print(num)
+#生成一个列表
+string = 'geek'
+li = list(string[i] for i in range(len(string)-1, -1, -1))
+print(li)
+
+
+#面向对象的编程范式
+# class Emp has been defined here 
+class Emp: 
+	def __init__(self, name, age): 
+		self.name = name 
+		self.age = age 
+	
+	def info(self): 
+		print("Hello, % s. You are % s old." % (self.name, self.age)) 
+
+# Objects of class Emp has been 
+# made here		 
+Emps = [Emp("John", 43), 
+	Emp("Hilbert", 16), 
+	Emp("Alice", 30)] 
+
+# Objects of class Emp has been 
+# used here 
+for emp in Emps: 
+	emp.info() 
+#过程化编程范式
+# Procedural way of finding sum 
+# of a list 
+
+mylist = [10, 20, 30, 40] 
+
+# modularization is done by 
+# functional approach 
+def sum_the_list(mylist): 
+	res = 0
+	for val in mylist: 
+		res += val 
+	return res 
+
+print(sum_the_list(mylist)) 
+
+#函数式编程范例
+# Functional way of finding sum of a list 
+import functools 
+
+mylist = [11, 22, 33, 44] 
+
+# 递归函数方法
+def sum_the_list(mylist): 
+	
+	if len(mylist) == 1: 
+		return mylist[0] 
+	else: 
+		return mylist[0] + sum_the_list(mylist[1:]) 
+
+# 使用lambda函数 
+print(functools.reduce(lambda x, y: x + y, mylist)) 
