@@ -1,0 +1,45 @@
+import cv2
+import numpy as np
+import glob
+
+chessboard_size = (9, 6)
+frame_size = (640, 480)
+
+objp = np.zeros((chessboard_size[0] * chessboard_size[1], 3), np.float32)
+objp[:, :2] = np.mgrid[0:chessboard_size[0], 0:chessboard_size[1]].T.reshape(-1, 2)
+
+#储存棋盘格角点的世界坐标和图像坐标
+objpoints = [] #  在世界坐标系中的三维点
+imgpoints = [] #  在图像平面的二维点
+
+#获取棋盘格图像
+images = glob.glob('calibartion_images/*.jpg')
+
+
+for image_file in images:
+    img = cv2.imread(image_file)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    #查找棋盘格的角点
+    ret, corners = cv2.findChessboardCorners(gray, chessboard_size, None)
+
+    if ret:
+        objpoints.append(objp)
+        imgpoints.append(corners)
+
+        #画出角点
+        cv2.drawChessboardCorners(img, chessboard_size, corners, ret)
+        cv2.imshow('img' , img)
+        cv2.waitKey(100)
+
+    cv2.destroyAllWindows() 
+
+
+    #标定摄像机   
+    ret, camera_matrix, dist_coeffs, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame_size, None, None)
+        #摄像机内参矩阵，畸变系数，旋转向量，平移向量
+
+
+    # 打印标定结果
+    print('Camera matrix: \n', camera_matrix)
+    print('Distortion coefficients: \n', dist_coeffs)
