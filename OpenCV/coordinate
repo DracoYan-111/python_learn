@@ -37,7 +37,7 @@ for image_file in images:
 
     #标定摄像机   
     ret, camera_matrix, dist_coeffs, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, frame_size, None, None)
-        #摄像机内参矩阵，畸变系数，旋转向量，平移向量
+        #摄像机内参矩阵
 
 
     # 打印标定结果

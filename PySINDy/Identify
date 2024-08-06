@@ -1,0 +1,34 @@
+import numpy as np
+import pysindy as ps
+
+dt = 0.01
+t = np.arange(0, 10, dt)
+x = np.sin(t)
+y = np.cos(t)
+data = np.vstack([x, y]).T  #虚拟栈
+
+model = ps.SINDy()
+model.fit(data, t=dt)
+
+model.print()
+
+
+from scipy.integrate import solve_ivp
+
+# 定义 Lotka-Volterra 动力系统
+def lotka_volterra(t, z):
+    x, y = z
+    return [0.1*x - 0.02*x*y, -0.1*y + 0.02*x*y]
+
+# 生成数据
+t = np.linspace(0, 10, 1000)
+z0 = [40, 9]
+sol = solve_ivp(lotka_volterra, [t.min(), t.max()], z0, t_eval=t, rtol=1e-10)
+x = sol.y.T
+
+# 拟合 SINDy 模型
+model = ps.SINDy()
+model.fit(x, t=0.01)
+
+# 打印识别出的方程
+model.print()
